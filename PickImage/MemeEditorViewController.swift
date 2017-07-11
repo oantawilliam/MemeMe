@@ -8,14 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-    
-    struct Meme {
-        var topTextField: String!
-        var bottomTextField: String!
-        var originalImage: UIImage!
-        var memedImage: UIImage!
-    }
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     let top = "TOP"
     let bottom = "BOTTOM"
@@ -44,18 +37,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func configureDefaultTextAttributes() {
+        
         let memeTextAttributes:[String:Any] = [
             NSStrokeColorAttributeName: UIColor.black,
             NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName: CGFloat(-1.0)]
+            NSFontAttributeName: UIFont(name: "Impact", size: 40)!,
+            NSStrokeWidthAttributeName: CGFloat(-2.5)]
         
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.textAlignment = NSTextAlignment.center
-        bottomTextField.textAlignment = NSTextAlignment.center
-
+        self.prepareTextField(textField: topTextField, memeTextAttributes: memeTextAttributes)
+        self.prepareTextField(textField: bottomTextField, memeTextAttributes: memeTextAttributes)
+    }
+    
+    func prepareTextField(textField: UITextField, memeTextAttributes: [String:Any]) {
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.center
     }
     
     func resetToLaunchState() {
@@ -78,20 +73,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: Pick Image Actions
-
-    @IBAction func pickImageFromAlbum(_ sender: Any) {
+    
+    func pick(sourceType: UIImagePickerControllerSourceType){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         present(imagePicker, animated: true, completion: nil)
+    }
+
+    @IBAction func pickImageFromAlbum(_ sender: Any) {
+        self.pick(sourceType: .photoLibrary)
     }
     
     @IBAction func pickImageFromCamera(_ sender: Any) {
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        self.pick(sourceType: .camera)
     }
     
     // MARK: Image Picker Callbacks
@@ -124,17 +119,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Keyboard Notifications
     
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
     
-    func keyboardWillShow(_ notification:Notification) {
-        self.view.frame.origin.y = 0 - getKeyboardHeight(notification)
+    func keyboardWillShow(_ notification: Notification) {
+        if bottomTextField.isEditing {
+            self.view.frame.origin.y = -getKeyboardHeight(notification)
+        }
     }
     
-    func keyboardWillHide(_ notification:Notification) {
+    func keyboardWillHide(_ notification: Notification) {
         self.view.frame.origin.y = 0
     }
     

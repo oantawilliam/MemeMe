@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7643DBFD1F1101A6008B8714"
-               BuildableName = "PickImage.app"
-               BlueprintName = "PickImage"
-               ReferencedContainer = "container:PickImage.xcodeproj">
+               BuildableName = "MemeMe.app"
+               BlueprintName = "MemeMe"
+               ReferencedContainer = "container:MemeMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7643DBFD1F1101A6008B8714"
-            BuildableName = "PickImage.app"
-            BlueprintName = "PickImage"
-            ReferencedContainer = "container:PickImage.xcodeproj">
+            BuildableName = "MemeMe.app"
+            BlueprintName = "MemeMe"
+            ReferencedContainer = "container:MemeMe.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7643DBFD1F1101A6008B8714"
-            BuildableName = "PickImage.app"
-            BlueprintName = "PickImage"
-            ReferencedContainer = "container:PickImage.xcodeproj">
+            BuildableName = "MemeMe.app"
+            BlueprintName = "MemeMe"
+            ReferencedContainer = "container:MemeMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7643DBFD1F1101A6008B8714"
-            BuildableName = "PickImage.app"
-            BlueprintName = "PickImage"
-            ReferencedContainer = "container:PickImage.xcodeproj">
+            BuildableName = "MemeMe.app"
+            BlueprintName = "MemeMe"
+            ReferencedContainer = "container:MemeMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
