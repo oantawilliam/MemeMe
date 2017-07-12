@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController
 //  PickImage
 //
 //  Created by William Oanta on 08/07/2017.
@@ -20,6 +20,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var navbar: UINavigationBar!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var memes: [Meme] = []
     
@@ -28,12 +29,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureDefaultTextAttributes()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        memes = appDelegate.memes
         
+//        if memes.isEmpty {
+//            self.cancelButton.isEnabled = false
+//        } else {
+//            self.cancelButton.isEnabled = true
+//        }
+        configureDefaultTextAttributes()
+        resetToLaunchState()
         topTextField.delegate = self
         bottomTextField.delegate = self
-        
-        resetToLaunchState()
     }
     
     func configureDefaultTextAttributes() {
@@ -150,6 +157,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func onCancelPressed(_ sender: Any) {
         resetToLaunchState()
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: Share Action
@@ -189,7 +197,16 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func saveMeme() {
         // Create the meme
-        memes.append(Meme(topTextField: topTextField.text!, bottomTextField: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage()))
+        let meme = Meme(top: topTextField.text!, bottom: bottomTextField.text!, image: imageView.image, memedImage: generateMemedImage())
+        
+        // Add it to the memes array in the Application Delegate
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }
 
